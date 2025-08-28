@@ -1,0 +1,82 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+*.egg
+.coverage
+htmlcov/
+.tox/
+*.cover
+.hypothesis/
+
+# JavaScript / Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+.npm
+.yarn
+dist/
+.next/
+out/
+.cache
+.parcel-cache
+*.tsbuildinfo
+next-env.d.ts
+
+# Docker
+*.log
+.dockerignore
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+postgres_data/
+
+# Prisma
+prisma/migrations/
+prisma/*.db
+prisma/*.db-journal
+
+# OpenFGA
+openfga_data/
+
+# UV
+uv.lock
+.python-version
+
+# Misc
+*.log
+tmp/
+temp/
+.cache/

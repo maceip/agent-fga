@@ -1,0 +1,23 @@
+model
+  schema 1.1
+
+type user
+type agent
+
+type gmail_account
+  relations
+    # The user who owns the account.
+    define owner: [user]
+
+    # Your trusted personal agent is the manager.
+    define manager: [agent] or owner
+
+    # A temporary role for reading emails, delegated by a manager.
+    define temporary_reader: [agent] from manager
+
+    # --- PERMISSIONS ---
+    # The manager can do anything.
+    define can_send_emails: manager
+    
+    # A temporary_reader OR a manager can read emails.
+    define can_read_emails: temporary_reader or manager

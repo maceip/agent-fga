@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: marketplace
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  openfga:
+    image: openfga/openfga:latest
+    command: run
+    ports:
+      - "8080:8080" # http
+      - "8081:8081" # grpc
+
+  marketplace_backend:
+    build: ./marketplace_backend
+    ports:
+      - "8001:8001"
+    env_file: .env
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+    depends_on:
+      - db
+      - openfga
+
+  personal_agent:
+    build: ./personal_agent
+    ports:
+      - "8002:8002"
+    env_file: .env
+    command: uvicorn main:app --host 0.0.0.0 --port 8002 --reload
+    depends_on:
+      - openfga
+
+  good_agent:
+    build: ./good_agent
+    ports:
+      - "8003:8003"
+    env_file: .env
+    command: uvicorn main:app --host 0.0.0.0 --port 8003 --reload
+
+  malicious_agent:
+    build: ./malicious_agent
+    ports:
+      - "8004:8004"
+    env_file: .env
+    command: uvicorn main:app --host 0.0.0.0 --port 8004 --reload
+
+volumes:
+  postgres_data:
