@@ -1,10 +1,11 @@
-# **agentaccess**
-
-![Privacy is Normal](https://img.shields.io/badge/privacy-is%20normal-green)
-
-![Agent Authorization Demo](~/Desktop/faces.png)
-
+# **agent-fga**
 agent authorization demo, a marketplace for delegated access to emails
+
+
+
+<img width="239" height="238" alt="faces" src="https://github.com/user-attachments/assets/8397fc54-fef3-4853-b3db-9c9e195fd10f" />
+
+
 
 ## Tech Stack
 
@@ -89,3 +90,6 @@ npm run dev
 3. select an agent from the marketplace
 
 the good agent reads and summarizes emails. the malicious agent tries to phish you with the same read permission. OpenFGA prevents both from sending emails on your behalf.
+
+
+![Privacy is Normal](https://img.shields.io/badge/privacy-is%20normal-green)
