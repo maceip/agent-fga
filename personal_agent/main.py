@@ -16,6 +16,35 @@ AGENT_URLS = {
 app = FastAPI()
 token_storage = {} # In-memory storage for this demo
 
+# Agent Card for discovery
+AGENT_CARD = {
+    "agent_id": "personal_agent",
+    "name": "Personal Gmail Agent",
+    "description": "User's trusted agent that manages Gmail permissions and access",
+    "version": "1.0.0",
+    "capabilities": [
+        "gmail_management",
+        "permission_control",
+        "secure_delegation"
+    ],
+    "tools": ["gmail_read", "openfga_manage"],
+    "endpoints": {
+        "execute": "http://personal_agent:8002/execute_task",
+        "status": "http://personal_agent:8002/status"
+    },
+    "metadata": {
+        "trust_level": 5,
+        "owner": "user",
+        "category": "system",
+        "verified": True
+    }
+}
+
+@app.get("/agent_card")
+async def get_agent_card():
+    """Return agent card for discovery"""
+    return AGENT_CARD
+
 async def fga_write(tuples: list = [], deletes: list = []):
     async with httpx.AsyncClient() as client:
         await client.post(

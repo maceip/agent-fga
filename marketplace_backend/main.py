@@ -13,6 +13,7 @@ GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY")
 PERSONAL_AGENT_URL = os.environ.get("PERSONAL_AGENT_URL")
+MCP_SERVER_URL = os.environ.get("MCP_SERVER_URL", "http://mcp_server:8090")
 
 app = FastAPI()
 db = Prisma()
@@ -70,6 +71,28 @@ async def auth_callback(request: Request):
 @app.get('/auth/status')
 def auth_status(request: Request):
     return {"authenticated": 'user_id' in request.session}
+
+@app.get('/agents')
+async def get_available_agents():
+    """Fetch all available agents from MCP server"""
+    try:
+        async with httpx.AsyncClient() as client:
+            res = await client.get(f"{MCP_SERVER_URL}/agents")
+            res.raise_for_status()
+            return res.json()
+    except Exception as e:
+        return {"agents": [], "error": str(e)}
+
+@app.get('/agents/{agent_id}')
+async def get_agent_card(agent_id: str):
+    """Fetch specific agent card from MCP server"""
+    try:
+        async with httpx.AsyncClient() as client:
+            res = await client.get(f"{MCP_SERVER_URL}/agents/{agent_id}")
+            res.raise_for_status()
+            return res.json()
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"Agent not found: {str(e)}")
 
 @app.post('/invoke-agent')
 async def invoke_agent(request: Request):

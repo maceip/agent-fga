@@ -37,10 +37,13 @@ services:
     ports:
       - "8001:8001"
     env_file: .env
+    environment:
+      - MCP_SERVER_URL=http://mcp_server:8090
     command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
     depends_on:
       - db
       - openfga
+      - mcp_server
 
   personal_agent:
     build: ./personal_agent
