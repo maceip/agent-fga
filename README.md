@@ -54,10 +54,10 @@ When a user selects an agent:
 ┌─────────────────────────────────────────┐
 │            User's Trust Domain          │
 │  ┌────────────────────────────────┐     │
-│  │     Personal Agent              │     │
-│  │  - Holds Gmail access token     │     │
-│  │  - Controls all permissions     │     │
-│  │  - Proxies all Gmail API calls  │     │
+│  │     Personal Agent             │     │
+│  │  - Holds Gmail access token    │     │
+│  │  - Controls all permissions    │     │
+│  │  - Proxies all Gmail API calls │     │
 │  └────────────────────────────────┘     │
 └─────────────────────────────────────────┘
                     ↓
